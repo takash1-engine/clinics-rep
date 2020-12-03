@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>治療院の詳細</h2>
+<li>{{ d.clinic_name }}</li>
+<li>{{ d.directer_name }}</li>
+<li>{{ d.address }}</li>
+<li>{{ d.phone_num }}</li>
+<li>{{ d.from_hour }}</li>
+<li>{{ d.to_hour }}</li>
+<li>{{ d.holiday }}</li>
+<li>{{ d.treatment }}</li>
+<li>{{ d.homepage }}</li>
+<li>{{ d.station }}</li>
+<li>{{labels}}</li>
+<li>{{ ave }}</li>
+
+<li><a href="{% url 'new_rep' d.id %}">治療院への評価を投稿する</a></li>
+<li><a href="{% url 'all_clinics' %}">全ての治療院を見る</a></li>
+
+{% for rep in relation_rep %}
+<p>-----------------------</p>
+<li>{{ rep.condition }}</li>
+<li>{{ rep.staff }}</li>
+<li>{{ rep.ventilation }}</li>
+<li>{{ rep.respect }}</li>
+<li>{{ rep.growth }}</li>
+<li>{{ rep.management }}</li>
+<li>{{ rep.evaluation }}</li>
+<li>{{ rep.compliance }}</li>
+<li><a href="{% url 'detail_rep' d.id rep.id %}">評価の詳細へ</a></li>
+<p>-----------------------</p>
+{% endfor %}
+
+{% endblock content %}

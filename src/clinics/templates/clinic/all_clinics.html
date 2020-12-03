@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for c in all_clinics %}
+<li>{{ c.clinic_name }}</li>
+<li>{{ c.directer_name }}</li>
+<li>{{ c.address }}</li>
+<li>{{ c.phone_num }}</li>
+<li>{{ c.homepage }}</li>
+<li><a href="{% url 'detail_clinic' c.id %}">治療院の詳細へ</a></li>
+<p>----------------------------</p>
+{% endfor %}
+<li><a href="{% url 'new_clinic' %}">新しく治療院を登録する。</a></li>
+{% endblock content %}

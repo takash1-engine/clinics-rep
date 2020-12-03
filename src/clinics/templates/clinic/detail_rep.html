@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<p>-----------------------</p>
+<li>{{ clinic.clinic_name }}への評価</li>
+<li>{{ rep.condition }}</li>
+<li>{{ rep.staff }}</li>
+<li>{{ rep.ventilation }}</li>
+<li>{{ rep.respect }}</li>
+<li>{{ rep.growth }}</li>
+<li>{{ rep.management }}</li>
+<li>{{ rep.evaluation }}</li>
+<li>{{ rep.compliance }}</li>
+<li>{{ rep.reason }}</li>
+<li>{{ rep.culture }}</li>
+<li>{{ rep.reward_growth }}</li>
+<li>{{ rep.supply }}</li>
+<li>{{ rep.women_work }}</li>
+<li>{{ rep.worklife }}</li>
+<li>{{ rep.strength_week }}</li>
+<li>{{ rep.director }}</li>
+<p>-----------------------</p>
+<li><a href="{% url 'detail_clinic' clinic.id %}">治療院の詳細へ</a></li>
+<li><a href="{% url 'all_clinics' %}">全ての治療院を見る</a></li>
+
+
+{% endblock content %}
