@@ -1,35 +1,77 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>治療院の詳細</h2>
-<li>{{ d.clinic_name }}</li>
-<li>{{ d.directer_name }}</li>
-<li>{{ d.address }}</li>
-<li>{{ d.phone_num }}</li>
-<li>{{ d.from_hour }}</li>
-<li>{{ d.to_hour }}</li>
-<li>{{ d.holiday }}</li>
-<li>{{ d.treatment }}</li>
-<li>{{ d.homepage }}</li>
-<li>{{ d.station }}</li>
-<li>{{labels}}</li>
-<li>{{ ave }}</li>
+<h2>{{ d.clinic_name }}の詳細と評価</h2>
+<div class="container">
+    <div class="row">
+        <canvas id="myRaderChart" class="col-xl-7 border border-info p-1 m-2" ></canvas>
+        <div class="col-xl-4 border border-info m-2">
+            <li class="list-group-item">代表者名：{{ d.directer_name }}</li>
+            <li class="list-group-item">住所：{{ d.address }}</li>
+            <li class="list-group-item">電話番号：{{ d.phone_num }}</li>
+            <li class="list-group-item">営業時間（始）：{{ d.from_hour }}</li>
+            <li class="list-group-item">営業時間（終）：{{ d.to_hour }}</li>
+            <li class="list-group-item">休日：{{ d.holiday }}</li>
+            <li class="list-group-item">治療内容：{{ d.treatment }}</li>
+            <li class="list-group-item">HP：{{ d.homepage }}</li>
+            <li class="list-group-item">最寄り駅：{{ d.station }}</li>
+            <div class="text-center"><a href="{% url 'new_rep' d.id %}" class="btn btn-outline-info mt-2 mb-2">治療院への評価を投稿する</a></div>
+        </div>
+    </div>
+</div>
 
-<li><a href="{% url 'new_rep' d.id %}">治療院への評価を投稿する</a></li>
-<li><a href="{% url 'all_clinics' %}">全ての治療院を見る</a></li>
-
+<div class="container">
+<div class="row">
 {% for rep in relation_rep %}
-<p>-----------------------</p>
-<li>{{ rep.condition }}</li>
-<li>{{ rep.staff }}</li>
-<li>{{ rep.ventilation }}</li>
-<li>{{ rep.respect }}</li>
-<li>{{ rep.growth }}</li>
-<li>{{ rep.management }}</li>
-<li>{{ rep.evaluation }}</li>
-<li>{{ rep.compliance }}</li>
-<li><a href="{% url 'detail_rep' d.id rep.id %}">評価の詳細へ</a></li>
-<p>-----------------------</p>
+<div class="card m-4 border-info col-xl-11 col-md-12">
+    <h5 class="card-header">個別の治療院の評価</h5>
+    <div class="card-body">
+      <h5 class="card-title"></h5>
+      <p class="card-text">
+        {{ rep.condition }}
+        {{ rep.staff }}
+        {{ rep.ventilation }}
+        {{ rep.respect }}
+        {{ rep.growth }}
+        {{ rep.management }}
+        {{ rep.evaluation }}
+        {{ rep.compliance }}</p>
+        <a href="{% url 'detail_rep' d.id rep.id %}" class="btn btn-outline-info">評価の詳細へ</a>
+    </div>
+  </div>
 {% endfor %}
+</div>
+</div>
+
+<a href="{% url 'all_clinics' %}" class="btn btn-info mb-4">もどる</a>
+
+<!-- CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+
+<script>
+    var ctx = document.getElementById("myRaderChart");
+    var myRadarChart = new Chart(ctx, {
+        type: 'radar', 
+        data: { 
+            labels: ['待遇面','スタッフ間の仲の良さ','風通しの良さ','スタッフ同士の相互尊重','成長環境','経営状況','人事評価の適正さ','法令遵守'],
+            datasets: [{
+                label: '平均評価',
+                data: {{ave}},
+                backgroundColor: 'RGBA(23, 162, 184,0.6)',
+                borderColor: '#17a2b8',
+                borderWidth: 2,
+                pointBackgroundColor: 'RGB(46,106,177)'
+                
+            }]},
+        options : {
+            scale: {
+                ticks: {
+                    min: 0,
+                    max: 5,
+                    stepSize: 1,
+                    backdropColor: 'rgba(255, 255, 255, 0)',
+                }}}
+    });
+    </script>
 
 {% endblock content %}

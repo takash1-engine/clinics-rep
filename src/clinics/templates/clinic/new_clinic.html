@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>治療院登録フォーム</h1>
-    <form method="POST" novalidate>
+    <form method="POST" novalidate class="mb-3">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">治療院を登録する</button>

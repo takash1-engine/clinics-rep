@@ -3,13 +3,14 @@ from django.http import HttpResponse
 from django.template import loader
 from .form import ClinicForm ,ReputationForm
 from .models import Clinic ,Reputation
+from django.views.generic import ListView
 
 import numpy as np
 import matplotlib.pyplot as plt
 
 # Create your views here.
 def index(request):
-    all_clinics = Clinic.objects.all().order_by('id')[:5]
+    all_clinics = Clinic.objects.all().order_by('id',?)[:5]
     context = {'all_clinics':all_clinics}
     return render(request,'clinic/index.html',context)
 
@@ -53,51 +54,10 @@ def detail_clinic(request,clinic_id):
     comp_ave = np.average(comp_list)
     ave_list =[con_ave,staff_ave,ven_ave,respect_ave,growth_ave,manage_ave,eva_ave,comp_ave]
 
-    values = np.array(ave_list)
+
     labels = ['待遇面','スタッフ間の仲の良さ','風通しの良さ','スタッフ同士の相互尊重','成長環境','経営状況','人事評価の適正さ','法令遵守']
 
-    # 多角形を閉じるためにデータの最後に最初の値を追加する。
-    radar_values = np.concatenate([values, [values[0]]])
-    # プロットする角度を生成する。
-    angles = np.linspace(0, 2 * np.pi, len(labels) + 1, endpoint=True)
-    # メモリ軸の生成
-    rgrids = [0, 1, 2, 3, 4, 5]
-
-
-    fig = plt.figure(facecolor="w")
-    # 極座標でaxを作成
-    ax = fig.add_subplot(1, 1, 1, polar=True)
-    # レーダーチャートの線を引く
-    ax.plot(angles, radar_values)
-    #　レーダーチャートの内側を塗りつぶす
-    ax.fill(angles, radar_values, alpha=0.2)
-    # 項目ラベルの表示
-    ax.set_thetagrids(angles[:-1] * 180 / np.pi, labels)
-    # 円形の目盛線を消す
-    ax.set_rgrids([])
-    # 一番外側の円を消す
-    ax.spines['polar'].set_visible(False)
-    # 始点を上(北)に変更
-    ax.set_theta_zero_location("N")
-    # 時計回りに変更(デフォルトの逆回り)
-    ax.set_theta_direction(-1)
-
-    # 多角形の目盛線を引く
-    for grid_value in rgrids:
-        grid_values = [grid_value] * (len(labels)+1)
-        ax.plot(angles, grid_values, color="gray",  linewidth=0.5)
-
-    # メモリの値を表示する
-    for t in rgrids:
-        # xが偏角、yが絶対値でテキストの表示場所が指定される
-        ax.text(x=0, y=t, s=t)
-
-    # rの範囲を指定
-    ax.set_rlim([min(rgrids), max(rgrids)])
-    ax.set_title("レーダーチャート", pad=20)
-    plt.show()
-
-    c = {'d':detail_clinic,'relation_rep':relation_rep,'ave':ave_list,'labels':labels,'plt':plt.show()}
+    c = {'d':detail_clinic,'relation_rep':relation_rep,'ave':ave_list,'labels':labels}
     return render(request,'clinic/detail_clinic.html',c)
 
 

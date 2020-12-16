@@ -1,24 +1,22 @@
 <!DOCTYPE html>
-{% load static %}
-
-{% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
-
 <html lang="ja">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% load static %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     <title>clinic-reputation</title>
   </head>
   <body>
-    <header>
+    <header class="mb-2">
       <!-- Navigation -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-gradient " >
+      <nav class="navbar navbar-expand-lg navbar-dark bg-info">
         <div class="container">
-          <a class="navbar-brand " href="/">Clinic-Reputation</a>
+          <a class="h1 text-light" href="/">てあてびと</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -28,9 +26,6 @@
             <ul class="navbar-nav mr-auto">　
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'all_clinics' %}">全ての治療院を見る</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">User</a>
               </li>
             </ul>
       
@@ -60,14 +55,14 @@
          
     </header>
 
-    <div class="container">
+    <div class="container mb-5">
       {% block content %}
         {{ content }}
       {% endblock %}
     </div>
 
   <!-- Footer -->
-  <footer class="fixed-bottom"  style="background-image: linear-gradient(15deg, #0c3896 0%, #89c3eb 100%);">
+  <footer class="bg-info fixed-bottom">
     <div class="footer-copyright text-center py-3 text-light">© 2020 Clinic-reputation
     </div>
     <!-- Copyright -->

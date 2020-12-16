@@ -1,14 +1,26 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<h2>すべての治療院</h2>
 {% for c in all_clinics %}
-<li>{{ c.clinic_name }}</li>
-<li>{{ c.directer_name }}</li>
-<li>{{ c.address }}</li>
-<li>{{ c.phone_num }}</li>
-<li>{{ c.homepage }}</li>
-<li><a href="{% url 'detail_clinic' c.id %}">治療院の詳細へ</a></li>
-<p>----------------------------</p>
+
+<div class="card border-info text-left mb-3 w-100 rounded">
+    <div class="card-header"><a class="text-info" href="{% url 'detail_clinic' c.id %}">{{ c.clinic_name }}</a></div>
+    <div class="card-body ">
+      <p class="card-text">
+       代表者：{{ c.directer_name }}<br>
+       住所：{{ c.address }}<br>
+       電話番号：{{ c.phone_num }}<br>
+       HP：{{ c.homepage }}<br>
+      </p>
+      <a class="btn btn-outline-info" href="{% url 'detail_clinic' c.id %}">詳しくみてみる</a>
+    </div>
+  </div>
+
+
 {% endfor %}
-<li><a href="{% url 'new_clinic' %}">新しく治療院を登録する。</a></li>
+<div class="text-center">
+<a class="btn btn-info" href="{% url 'new_clinic' %}">新しく治療院を登録する</a>
+</div>
 {% endblock content %}

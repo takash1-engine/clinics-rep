@@ -2,27 +2,33 @@
 
 {% block content %}
 
-<p>-----------------------</p>
-<li>{{ clinic.clinic_name }}への評価</li>
-<li>{{ rep.condition }}</li>
-<li>{{ rep.staff }}</li>
-<li>{{ rep.ventilation }}</li>
-<li>{{ rep.respect }}</li>
-<li>{{ rep.growth }}</li>
-<li>{{ rep.management }}</li>
-<li>{{ rep.evaluation }}</li>
-<li>{{ rep.compliance }}</li>
-<li>{{ rep.reason }}</li>
-<li>{{ rep.culture }}</li>
-<li>{{ rep.reward_growth }}</li>
-<li>{{ rep.supply }}</li>
-<li>{{ rep.women_work }}</li>
-<li>{{ rep.worklife }}</li>
-<li>{{ rep.strength_week }}</li>
-<li>{{ rep.director }}</li>
-<p>-----------------------</p>
-<li><a href="{% url 'detail_clinic' clinic.id %}">治療院の詳細へ</a></li>
-<li><a href="{% url 'all_clinics' %}">全ての治療院を見る</a></li>
+<div class="card border-info mb-4 w-100">
+    <div class="card-header"><h2>{{ clinic.clinic_name }}の詳細な評価</h2></div>
+    <div class="card-body ">
+      <p class="card-text">
+        <li class="list-group-item">{{ rep.condition }}</li>
+        <li class="list-group-item">{{ rep.staff }}</li>
+        <li class="list-group-item">{{ rep.ventilation }}</li>
+        <li class="list-group-item">{{ rep.respect }}</li>
+        <li class="list-group-item">{{ rep.growth }}</li>
+        <li class="list-group-item">{{ rep.management }}</li>
+        <li class="list-group-item">{{ rep.evaluation }}</li>
+        <li class="list-group-item">{{ rep.compliance }}</li>
+        <li class="list-group-item">{{ rep.reason }}</li>
+        <li class="list-group-item">{{ rep.culture }}</li>
+        <li class="list-group-item">{{ rep.reward_growth }}</li>
+        <li class="list-group-item">{{ rep.supply }}</li>
+        <li class="list-group-item">{{ rep.women_work }}</li>
+        <li class="list-group-item">{{ rep.worklife }}</li>
+        <li class="list-group-item">{{ rep.strength_weak }}</li>
+        <li class="list-group-item">{{ rep.director }}</li>
+      </p>
+      <div class="text-center"><a class="btn btn-outline-info mb-2" href="{% url 'detail_clinic' clinic.id %}">治療院の詳細へ戻る</a></div>
+    </div>
+    
+</div>
+
+<a class="btn btn-info mb-4" href="{% url 'all_clinics' %}">全ての治療院を見る</a>
 
 
 {% endblock content %}
