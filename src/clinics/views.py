@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 # Create your views here.
 def index(request):
-    all_clinics = Clinic.objects.all().order_by('id',?)[:5]
+    all_clinics = Clinic.objects.all().order_by('id')[:5]
     context = {'all_clinics':all_clinics}
     return render(request,'clinic/index.html',context)
 
