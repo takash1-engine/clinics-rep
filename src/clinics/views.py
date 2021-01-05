@@ -19,7 +19,7 @@ def all_clinics(request):
     all_clinics = Clinic.objects.all
     context = {'all_clinics':all_clinics}
     return render(request,'clinic/all_clinics.html',context)
-
+    
 
 def detail_clinic(request,clinic_id):
     condition_list = []

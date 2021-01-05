@@ -23,8 +23,10 @@ class ClinicForm(forms.ModelForm):
 class ReputationForm(forms.ModelForm):
     class Meta:
         model = Reputation
-        fields = ('condition', 'staff','ventilation','respect','growth','management','evaluation','compliance','reason','culture','reward_growth','supply','women_work','worklife','strength_weak','director')
+        fields = ('gender','age','condition', 'staff','ventilation','respect','growth','management','evaluation','compliance','reason','culture','reward_growth','supply','women_work','worklife','strength_weak','director')
         labels = {
+            'gender': '性別',
+            'age': '年齢',
             'condition': '待遇面',
             'staff': 'スタッフ間の仲の良さ',
             'ventilation': '風通しの良さ',

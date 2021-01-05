@@ -43,8 +43,25 @@ class Reputation(models.Model):
         (4, '4'),
         (5, '5'),
     )
+
+    gender_num = (
+        (1, '男性'),
+        (2, '女性'),
+        (3, 'LGBT'),
+        (4, '未回答'),
+    )
+
+    age_num = (
+        (20, '20代'),
+        (30, '30代'),
+        (40, '40代'),
+        (50, '50代'),
+        (60, '60代以上'),
+    )
     
     clinic = models.ForeignKey(Clinic, on_delete=models.CASCADE)
+    gender = models.CharField('性別',choices=gender_num,max_length = 10)
+    age = models.PositiveIntegerField('年齢',choices=age_num)
     condition = models.PositiveIntegerField('待遇面', choices=rep_num)
     staff = models.PositiveIntegerField('スタッフ間の仲の良さ', choices=rep_num)
     ventilation = models.PositiveIntegerField('風通しの良さ', choices=rep_num)
@@ -74,6 +91,8 @@ class Reputation(models.Model):
         return self.director
 
     def __int__(self):
+        return self.gender
+        return self.age
         return self.condition
         return self.staff
         return self.ventilation
