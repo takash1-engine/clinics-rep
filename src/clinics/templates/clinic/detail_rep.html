@@ -2,8 +2,8 @@
 
 {% block content %}
 
-<div class="card border-info mb-4 w-100">
-    <div class="card-header"><h2>{{ clinic.clinic_name }}の詳細な評価</h2></div>
+<div class="card mcb mb-4 w-100">
+    <div class="card-header mct"><h2>{{ clinic.clinic_name }}の詳細な評価</h2></div>
     <div class="card-body ">
       <p class="card-text">
         <li class="list-group-item">{{ rep.condition }}</li>
@@ -23,12 +23,12 @@
         <li class="list-group-item">{{ rep.strength_weak }}</li>
         <li class="list-group-item">{{ rep.director }}</li>
       </p>
-      <div class="text-center"><a class="btn btn-outline-info mb-2" href="{% url 'detail_clinic' clinic.id %}">治療院の詳細へ戻る</a></div>
+      <div class="text-center"><a class="btn mcb mb-2" href="{% url 'detail_clinic' clinic.id %}">治療院の詳細へ戻る</a></div>
     </div>
     
 </div>
 
-<a class="btn btn-info mb-4" href="{% url 'all_clinics' %}">全ての治療院を見る</a>
+<a class="btn mc text-light mb-4" href="{% url 'all_clinics' %}">全ての治療院を見る</a>
 
 
 {% endblock content %}
