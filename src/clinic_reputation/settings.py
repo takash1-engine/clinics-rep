@@ -42,6 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap4',
+    'accounts', 
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +70,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': (
+            os.path.join(BASE_DIR, 'templates', 'allauth'),
             os.path.join(BASE_DIR, 'templates'), 
         ),
         'APP_DIRS': True,
@@ -128,7 +134,41 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "clinics")
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'staticfiles'),  # プロジェクト直下のstaticディレクトリを指定
+)
+
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+# 認証方式を「メールアドレスとパスワード」に変更
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ユーザー名を使用する
+ACCOUNT_USERNAME_REQUIRED = False
+
+# ユーザー登録確認メールは送信しない
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+# メールアドレスを必須項目にする
+ACCOUNT_EMAIL_REQUIRED = True
+
+#ユーザーモデルの拡張(customuser)
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+SITE_ID = 1 #django-allauthがsitesフレームワークを使っているため
+
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_ON_GET = True
+
+#signupformを指定
+ACCOUNT_FORMS = {
+    'signup' : 'accounts.forms.CustomSignupForm',
+}
+#signupformからの情報をcustomusermodelに保存するのに必要
+ACCOUNT_ADAPTER = 'accounts.adapter.AccountAdapter'
+#passwordの入力を一回に
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True 
