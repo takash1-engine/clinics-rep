@@ -36,6 +36,10 @@ a:hover{
   vertical-align: middle;
 }
 
+.mc-button:hover{
+  color:rgba(#89c3eb, 0.7);
+}
+
 
 .mcb-button{
   padding: 4px 7px;
@@ -48,6 +52,10 @@ a:hover{
   color: #212529;
   text-align: center;
   vertical-align: middle;
+}
+
+.mcb-button:hover{
+  color:#89c3eb;
 }
 
 .textarea{

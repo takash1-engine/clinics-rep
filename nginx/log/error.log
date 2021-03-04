@@ -1,0 +1,1 @@
+2021/03/04 23:36:34 [warn] 7#7: *4 an upstream response is buffered to a temporary file /var/cache/nginx/uwsgi_temp/1/00/0000000001 while reading upstream, client: 172.21.0.1, server: 127.0.0.1, request: "GET / HTTP/1.1", upstream: "uwsgi://172.21.0.3:8000", host: "localhost:8000"
