@@ -24,17 +24,15 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <!-- この下の行に mr-auto クラスを付与するだけ -->
             <ul class="navbar-nav mr-auto">　
-              <li class="nav-item">
+              <li class="nav-item"></li>
                 <a class="nav-link text-light" href="{% url 'all_clinics' %}">全ての治療院を見る</a>
               </li>
             </ul>
             <ul class="navbar-nav">
-                {% if user.is_authenticated %}
-                <li class="nav-item"><p class="nab-link">{% user_display user %}</p></li>
-                <li class="nav-item"><a class="nav-link text-light" href="{% url 'logout' %}">ログアウト</a></li>
+                <li class="nav-item"><a class="nav-link text-light" href="/">ログアウト</a></li>
                 {% else %}
-                <li class="nav-item"><a class="nav-link text-light" href="accounts/login">ログイン</a></li>
-                <li class="nav-item"><a class="nav-link text-light" href="accounts/signup">アカウント作成</a></li>  
+                <li class="nav-item"><a class="nav-link text-light" href="/">ログイン</a></li>
+                <li class="nav-item"><a class="nav-link text-light" href="/">アカウント作成</a></li>  
                 {% endif %}
             </ul>
           </div>
@@ -43,9 +41,8 @@
     </header>
 
     <div class="main container mb-5">
-      {% block content %}
-        {{ content }}
-      {% endblock %}
+      {% block body %}
+      {% endbody %}
     </div>
 
   <!-- Footer -->

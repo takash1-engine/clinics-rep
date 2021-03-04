@@ -33,8 +33,6 @@ class Clinic(models.Model):
         verbose_name_plural = '治療院情報'
 
 
-
-
 class Reputation(models.Model):
     rep_num = (
         (1, '1'),
@@ -45,10 +43,10 @@ class Reputation(models.Model):
     )
 
     gender_num = (
-        (1, '男性'),
-        (2, '女性'),
-        (3, 'LGBT'),
-        (4, '未回答'),
+        ('male', '男性'),
+        ('female', '女性'),
+        ('lgbt', 'LGBT'),
+        ('noanswer', '未回答'),
     )
 
     age_num = (

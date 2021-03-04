@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block body %}
 
 <h2 class="mct">すべての治療院</h2>
 {% for c in all_clinics %}
@@ -23,4 +23,4 @@
 <div class="text-center">
 <a class="btn mc text-light" href="{% url 'new_clinic' %}">新しく治療院を登録する</a>
 </div>
-{% endblock content %}
+{% endblock %}

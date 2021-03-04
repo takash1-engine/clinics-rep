@@ -3,7 +3,7 @@ version: '3'
 services:
     nginx:
         image: nginx:1.16
-        container_name: clirep_nginx
+        container_name: clirep_web
         ports:
             - "8000:8000"
         volumes:
@@ -17,16 +17,16 @@ services:
             TZ: 'Asia/Tokyo'
 
     db:
-        image: mysql:5.7
+        image: mariadb
         container_name: clirep_db
         command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
         ports:
             - "3306:3306"
         environment:
-            MYSQL_DATABASE: ${DATABASE}
-            MYSQL_USER: ${USERNAME}
-            MYSQL_PASSWORD: ${USERPASS}
-            MYSQL_ROOT_PASSWORD: ${ROOTPASS}
+            MYSQL_DATABASE: clirep_db
+            MYSQL_USER: clirep_user
+            MYSQL_PASSWORD: clirep_pass1234
+            MYSQL_ROOT_PASSWORD: root_pass_1234
             TZ: 'Asia/Tokyo'
         volumes:
             - ./mysql:/var/lib/mysql
@@ -36,7 +36,7 @@ services:
     python:
         build: ./python
         container_name: clirep_app
-        command: uwsgi --socket :8000 --module clinic_reputation.wsgi 
+        command: uwsgi --socket :8000 --module config.wsgi 
         volumes:
             - ./src:/code
             - ./static:/static
