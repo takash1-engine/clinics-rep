@@ -3,9 +3,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import send_mail
 from django.utils import timezone
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from django.conf import settings
 
 
 class UserManager(UserManager):
@@ -33,25 +30,6 @@ class UserManager(UserManager):
         return self._create_user(email, password, **extra_fields)
 
 
-class UserProfile(models.Model):
-    """ユーザープロフィールモデル"""
-    gender_num = (
-        ('male', '男性'),
-        ('female', '女性'),
-        ('lgbt', 'LGBT'),
-        ('noanswer', '未回答'),
-    )
-
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-                                related_name='profile')
-    birthday = models.DateField('誕生日',blank=True,)
-    gender = models.CharField('性別',choices=gender_num,max_length = 10)
-    carrer = models.TextField(blank=True,max_length=1000,)
-
-    def __str__(self):
-        return self.user.username
-
-
 class User(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(_('email address'), unique=True)
@@ -66,7 +44,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=True,
         help_text=_(
             'Designates whether this user should be treated as active. '
-            'Unselect this instead of deleting account.'
+            'Unselect this instead of deleting accounts.'
         ),
     )
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
@@ -88,10 +66,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
-
-
-@receiver(post_save, sender=User)
-def create_profile(sender, **kwargs):
-    """ 新ユーザー作成時に空のprofileも作成する """
-    if kwargs['created']:
-        user_profile = UserProfile.objects.get_or_create(user=kwargs['instance'])

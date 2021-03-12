@@ -39,7 +39,6 @@ services:
         command: uwsgi --socket :8000 --module config.wsgi 
         volumes:
             - ./src:/code
-            - ./static:/static
         expose:
             - "8000"
         depends_on:

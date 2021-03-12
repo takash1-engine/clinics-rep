@@ -1,63 +1,63 @@
 body {
-  display: flex;
-  flex-flow: column;
-  min-height: 100vh;
+    display: flex;
+    flex-flow: column;
+    min-height: 100vh;
 }
 .main {
-  flex: 1;
+flex: 1;
 }
 
 a:hover{
-  text-decoration:none;
+text-decoration:none;
 }
 
 /*----main-color-relation----*/
 .mc {
-  background-color:#89c3eb;
+background-color:#89c3eb;
 }
 
 .mcb{
-  border-color: #89c3eb;
+border-color: #89c3eb;
 }
 
 .mct{
-  color:#89c3eb;
+color:#89c3eb;
 }
 
 .mc-button{
-  display: inline-block;
-  font-size: 1.25rem;
-  line-height: 1.5;
-  border-radius: .3rem;
-  background-color:#89c3eb;
-  font-weight: 400;
-  color: #DDD4CF;
-  text-align: center;
-  vertical-align: middle;
+display: inline-block;
+font-size: 1.25rem;
+line-height: 1.5;
+border-radius: .3rem;
+background-color:#89c3eb;
+font-weight: 400;
+color: #DDD4CF;
+text-align: center;
+vertical-align: middle;
 }
 
 .mc-button:hover{
-  color:rgba(#89c3eb, 0.7);
+color:rgba(#89c3eb, 0.7);
 }
 
 
 .mcb-button{
-  padding: 4px 7px;
-  font-size: 1.25rem;
-  line-height: 1.5;
-  border-radius: .3rem;
-  display: inline-block;
-  border-color: #89c3eb;
-  font-weight: 400;
-  color: #212529;
-  text-align: center;
-  vertical-align: middle;
+padding: 4px 7px;
+font-size: 1.25rem;
+line-height: 1.5;
+border-radius: .3rem;
+display: inline-block;
+border-color: #89c3eb;
+font-weight: 400;
+color: #212529;
+text-align: center;
+vertical-align: middle;
 }
 
 .mcb-button:hover{
-  color:#89c3eb;
+color:#89c3eb;
 }
 
 .textarea{
-  width: 80%;
+width: 80%;
 }

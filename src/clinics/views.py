@@ -16,54 +16,53 @@ def index(request):
 
 
 def all_clinics(request):
-    all_clinics = Clinic.objects.all
+    all_clinics = Clinic.objects.all()
     all_ave_list = []
     cli_rep_list = []
-
-    
-    # 全ての治療院の平均評価の割り出し
+# 全ての治療院の平均評価の割り出し
     for clinic in all_clinics:
-        reputations = Reputation.objects.all().filter(id=clinic.id)
-        ave_list = []
-        condition_list = []
-        staff_list = []
-        ven_list = []
-        respect_list = []
-        growth_list = []
-        manage_list = []
-        eva_list = []
-        comp_list = []
+        reputations = Reputation.objects.all().filter(clinic_id=clinic.id)
+        if reputations == "":
+            all_ave_list = all_ave_list + "まだ評価がありません！"
+        else:
+            ave_list = []
+            condition_list = []
+            staff_list = []
+            ven_list = []
+            respect_list = []
+            growth_list = []
+            manage_list = []
+            eva_list = []
+            comp_list = []
 
-        for rep in reputations:
-            condition_list.append(rep.condition)
-            staff_list.append(rep.staff)
-            ven_list.append(rep.ventilation)
-            respect_list.append(rep.respect)
-            growth_list.append(rep.growth)
-            manage_list.append(rep.management)
-            eva_list.append(rep.evaluation)
-            comp_list.append(rep.compliance)
+            for rep in reputations:
+                condition_list.append(rep.condition)
+                staff_list.append(rep.staff)
+                ven_list.append(rep.ventilation)
+                respect_list.append(rep.respect)
+                growth_list.append(rep.growth)
+                manage_list.append(rep.management)
+                eva_list.append(rep.evaluation)
+                comp_list.append(rep.compliance)
 
-        con_ave = np.average(condition_list)
-        staff_ave = np.average(staff_list)
-        ven_ave = np.average(ven_list)
-        respect_ave = np.average(respect_list)
-        growth_ave = np.average(growth_list)
-        manage_ave = np.average(manage_list)
-        eva_ave = np.average(eva_list)
-        comp_ave = np.average(comp_list)
-        ave_list =[con_ave,staff_ave,ven_ave,respect_ave,growth_ave,manage_ave,eva_ave,comp_ave]
-        average_rep = np.average(ave_list)
-        
-        all_ave_list = all_ave_list + average_rep
+            con_ave = np.average(condition_list)
+            staff_ave = np.average(staff_list)
+            ven_ave = np.average(ven_list)
+            respect_ave = np.average(respect_list)
+            growth_ave = np.average(growth_list)
+            manage_ave = np.average(manage_list)
+            eva_ave = np.average(eva_list)
+            comp_ave = np.average(comp_list)
+            ave_list =[con_ave,staff_ave,ven_ave,respect_ave,growth_ave,manage_ave,eva_ave,comp_ave]
+            average_rep = np.average(ave_list)
+            all_ave_list = all_ave_list + average_rep
     #ここまで
-
 
     for c,r in zip(all_clinics,all_ave_list):
         cli_rep_list = cli_rep_list + [c.id,c.clinic_name,c.directer_name,c.address,c.phone_num,c.homepage,r]
 
 
-    context = {'all_clinics':all_clinics,'cli_rep_list':cli_rep_list}
+    context = {'cli_rep_list':cli_rep_list}
     return render(request,'clinic/all_clinics.html',context)
     
 
