@@ -29,8 +29,16 @@
             </ul>
             <ul class="navbar-nav">
               {% if user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link text-light" href="{% url 'logout' %}">ログアウト</a></li>
-                <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:profile' %}">プロフィール</a></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  プロフィール
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'accounts:profile' %}">プロフィールの詳細へ</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'logout' %}">ログアウト</a>
+                </div>
+              </li>
               {% else %}
                 <li class="nav-item"><a class="nav-link text-light" href="{% url 'login' %}">ログイン</a></li>
                 <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:signup' %}">アカウント作成</a></li>

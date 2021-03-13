@@ -5,7 +5,7 @@
 <h1>治療院編集フォーム</h1>
     <form method="POST" novalidate class="mb-3">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.as_table }}
         <button type="submit">更新する</button>
     </form>
     <p>{{ message }}</p>
