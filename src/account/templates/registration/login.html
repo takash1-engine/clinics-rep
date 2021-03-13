@@ -1,11 +1,11 @@
-{% extends "base.html" %}
+{% extends "base_centered.html" %}
 
 {% block content %}
 
     <h5 class="card-title text-center">ログイン</h5>
     <form action="{% url 'login' %}" method="POST">
         {% bootstrap_form form %}
-        <button type="submit" class="btn btn-primary btn-block">ログイン</button>
+        <button type="submit" class="btn btn-info btn-block">ログイン</button>
         <input type="hidden" name="next" value="{{ next }}"/>
         {% csrf_token %}
     </form>
