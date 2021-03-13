@@ -103,7 +103,8 @@ class UpdateClinicView(UpdateView):
     template_name = 'clinic/update_clinic.html'
     model = Clinic
     fields = ['clinic_name', 'directer_name','address','phone_num','from_hour','to_hour','holiday','treatment','homepage','station']
-
+    success_url = "detail_clinic.html"
+    
 
 def detail_rep(request,clinic_id,reputation_id):
     detail_clinic = Clinic.objects.get(id = clinic_id)

@@ -4,7 +4,9 @@
 <h1>評価投稿フォーム</h1>
     <form method="POST" novalidate class="mb-5" style="width: 80%;">
         {% csrf_token %}
-        {{ form.as_p }}
+        <table>
+            {{ form.as_table }}
+        </table>
         <button class="btn-lg btn-info" type="submit">評価を投稿する</button>
     </form>
     <p class="mb-5">{{ message }}</p>
