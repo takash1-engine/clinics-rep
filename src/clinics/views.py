@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from .form import ClinicForm ,ReputationForm
 from .models import Clinic ,Reputation
-from django.views.generic import ListView
+from django.views.generic import ListView,UpdateView
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -18,11 +18,10 @@ def index(request):
 def all_clinics(request):
     all_clinics = Clinic.objects.all()
     all_ave_list = []
-    cli_rep_list = []
-# 全ての治療院の平均評価の割り出し
-    for clinic in all_clinics:
-        reputations = Reputation.objects.filter(clinic_id=clinic.id)
-        print(reputations)
+    result_list = []
+
+    for c in all_clinics:
+        reputations = Reputation.objects.filter(clinic__id = c.id)
         ave_list = []
         condition_list = []
         staff_list = []
@@ -33,15 +32,15 @@ def all_clinics(request):
         eva_list = []
         comp_list = []
 
-        for rep in reputations:
-            condition_list.append(rep.condition)
-            staff_list.append(rep.staff)
-            ven_list.append(rep.ventilation)
-            respect_list.append(rep.respect)
-            growth_list.append(rep.growth)
-            manage_list.append(rep.management)
-            eva_list.append(rep.evaluation)
-            comp_list.append(rep.compliance)
+        for r in reputations:
+            condition_list.append(r.condition)
+            staff_list.append(r.staff)
+            ven_list.append(r.ventilation)
+            respect_list.append(r.respect)
+            growth_list.append(r.growth)
+            manage_list.append(r.management)
+            eva_list.append(r.evaluation)
+            comp_list.append(r.compliance)
 
         con_ave = np.average(condition_list)
         staff_ave = np.average(staff_list)
@@ -52,15 +51,12 @@ def all_clinics(request):
         eva_ave = np.average(eva_list)
         comp_ave = np.average(comp_list)
         ave_list =[con_ave,staff_ave,ven_ave,respect_ave,growth_ave,manage_ave,eva_ave,comp_ave]
-        average_rep = np.average(ave_list)
-        all_ave_list = all_ave_list + average_rep
-#ここまで
+        all_ave_list = all_ave_list + np.average(ave_list)
 
-    for c,r in zip(all_clinics,all_ave_list):
-        cli_rep_list = cli_rep_list + [c.id,c.clinic_name,c.directer_name,c.address,c.phone_num,c.homepage,r]
+    for c , r in zip(all_clinics,all_ave_list):
+        result_list = result_list + [c.id,c.clinic_name,c.directer_name,c.address,c.phone_num,c.homepage,c.station,r]
 
-
-    context = {'cli_rep_list':cli_rep_list}
+    context = {'result_list':result_list}
     return render(request,'clinic/all_clinics.html',context)
     
 
@@ -102,6 +98,11 @@ def detail_clinic(request,clinic_id):
 
     c = {'d':detail_clinic,'relation_rep':relation_rep,'ave':ave_list,'labels':labels}
     return render(request,'clinic/detail_clinic.html',c)
+
+class UpdateClinicView(UpdateView):
+    template_name = 'clinic/update_clinic.html'
+    model = Clinic
+    fields = ['clinic_name', 'directer_name','address','phone_num','from_hour','to_hour','holiday','treatment','homepage','station']
 
 
 def detail_rep(request,clinic_id,reputation_id):

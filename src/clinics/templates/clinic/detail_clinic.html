@@ -15,7 +15,8 @@
             <li class="list-group-item">治療内容：{{ d.treatment }}</li>
             <li class="list-group-item">HP：{{ d.homepage }}</li>
             <li class="list-group-item">最寄り駅：{{ d.station }}</li>
-            <div class="text-center"><a href="{% url 'new_rep' d.id %}" class="btn mcb mt-2 mb-2">治療院への評価を投稿する</a></div>
+            <div class="text-center"><a href="{% url 'update_clinic' d.id %}" class="btn btn-outline-info mt-2 mb-2">治療院の内容を修正する</a></div> 
+            <div class="text-center"><a href="{% url 'new_rep' d.id %}" class="btn btn-info mt-2 mb-2">治療院への評価を投稿する</a></div>
         </div>
     </div>
 </div>
