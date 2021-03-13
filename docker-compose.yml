@@ -23,10 +23,10 @@ services:
         ports:
             - "3306:3306"
         environment:
-            MYSQL_DATABASE: clirep_db
-            MYSQL_USER: clirep_user
-            MYSQL_PASSWORD: clirep_pass1234
-            MYSQL_ROOT_PASSWORD: root_pass_1234
+            MYSQL_DATABASE: $MYSQL_DB
+            MYSQL_USER: $MYSQL_USER
+            MYSQL_PASSWORD: $MYSQL_PW
+            MYSQL_ROOT_PASSWORD: $MYSQL_RPW
             TZ: 'Asia/Tokyo'
         volumes:
             - ./mysql:/var/lib/mysql
