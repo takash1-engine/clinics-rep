@@ -3,7 +3,8 @@ from django.http import HttpResponse
 from django.template import loader
 from .form import ClinicForm ,ReputationForm
 from .models import Clinic ,Reputation
-from django.views.generic import ListView,UpdateView
+from django.views import generic
+from django.urls import reverse
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -99,11 +100,13 @@ def detail_clinic(request,clinic_id):
     c = {'d':detail_clinic,'relation_rep':relation_rep,'ave':ave_list,'labels':labels}
     return render(request,'clinic/detail_clinic.html',c)
 
-class UpdateClinicView(UpdateView):
+class UpdateClinicView(generic.edit.UpdateView):
     template_name = 'clinic/update_clinic.html'
     model = Clinic
     fields = ['clinic_name', 'directer_name','address','phone_num','from_hour','to_hour','holiday','treatment','homepage','station']
-    success_url = "detail_clinic.html"
+
+    def get_success_url(self):
+        return reverse('detail_clinic',kwargs={'clinic_id': self.object.pk})
     
 
 def detail_rep(request,clinic_id,reputation_id):
