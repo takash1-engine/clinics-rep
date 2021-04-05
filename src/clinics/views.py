@@ -60,8 +60,8 @@ def all_clinics(request):
     for c in all_clinics:
         reputations = Reputation.objects.all().filter(clinic_id = c.id)
         ave_list = get_average_data(reputations)
-        one_clinics_aveRep = np.average(ave_list)
-        all_ave_list = all_ave_list + [c.id,c.clinic_name,c.directer_name,c.address,c.phone_num,c.homepage,c.station,one_clinics_aveRep]
+        one_clinics_ave_rep = np.average(ave_list)
+        all_ave_list.append([c.id,c.clinic_name,c.directer_name,c.address,c.phone_num,c.homepage,c.station,one_clinics_ave_rep])
 
     context = {'all_ave_list':all_ave_list}
     return render(request,'clinic/all_clinics.html',context)
