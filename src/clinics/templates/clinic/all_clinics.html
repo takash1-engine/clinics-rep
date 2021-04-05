@@ -3,8 +3,8 @@
 {% block body %}
 
 <h2 class="mct">すべての治療院</h2>
-{% for c in result_list %}
-  {{ c.0 }}
+{% for c in all_ave_list %}
+  {{ c.1 }}
 {% endfor %}
 <div class="text-center">
 <a class="btn btn-info text-light" href="{% url 'new_clinic' %}">新しく治療院を登録する</a>

@@ -9,59 +9,11 @@ from django.urls import reverse
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Create your views here.
-def index(request):
-    all_clinics = Clinic.objects.all().order_by('id')[:5]
-    context = {'all_clinics':all_clinics}
-    return render(request,'clinic/index.html',context)
+# functions to get datas
 
-
-def all_clinics(request):
-    all_clinics = Clinic.objects.all()
-    all_ave_list = []
-    result_list = []
-
-    for c in all_clinics:
-        reputations = Reputation.objects.filter(clinic__id = c.id)
-        ave_list = []
-        condition_list = []
-        staff_list = []
-        ven_list = []
-        respect_list = []
-        growth_list = []
-        manage_list = []
-        eva_list = []
-        comp_list = []
-
-        for r in reputations:
-            condition_list.append(r.condition)
-            staff_list.append(r.staff)
-            ven_list.append(r.ventilation)
-            respect_list.append(r.respect)
-            growth_list.append(r.growth)
-            manage_list.append(r.management)
-            eva_list.append(r.evaluation)
-            comp_list.append(r.compliance)
-
-        con_ave = np.average(condition_list)
-        staff_ave = np.average(staff_list)
-        ven_ave = np.average(ven_list)
-        respect_ave = np.average(respect_list)
-        growth_ave = np.average(growth_list)
-        manage_ave = np.average(manage_list)
-        eva_ave = np.average(eva_list)
-        comp_ave = np.average(comp_list)
-        ave_list =[con_ave,staff_ave,ven_ave,respect_ave,growth_ave,manage_ave,eva_ave,comp_ave]
-        all_ave_list = all_ave_list + np.average(ave_list)
-
-    for c , r in zip(all_clinics,all_ave_list):
-        result_list = result_list + [c.id,c.clinic_name,c.directer_name,c.address,c.phone_num,c.homepage,c.station,r]
-
-    context = {'result_list':result_list}
-    return render(request,'clinic/all_clinics.html',context)
-    
-
-def detail_clinic(request,clinic_id):
+#治療院の各項目の平均評価の割り出し
+def get_average_data(filter_rep):
+    ave_list = []
     condition_list = []
     staff_list = []
     ven_list = []
@@ -71,10 +23,7 @@ def detail_clinic(request,clinic_id):
     eva_list = []
     comp_list = []
 
-    detail_clinic = Clinic.objects.get(id = clinic_id)
-    relation_rep = Reputation.objects.all().filter(clinic_id = clinic_id)
-
-    for rep in relation_rep:
+    for rep in filter_rep:
         condition_list.append(rep.condition)
         staff_list.append(rep.staff)
         ven_list.append(rep.ventilation)
@@ -94,11 +43,41 @@ def detail_clinic(request,clinic_id):
     comp_ave = np.average(comp_list)
     ave_list =[con_ave,staff_ave,ven_ave,respect_ave,growth_ave,manage_ave,eva_ave,comp_ave]
 
+    return ave_list
+
+
+# Create your views here.
+def index(request):
+    all_clinics = Clinic.objects.all().order_by('id')[:5]
+    context = {'all_clinics':all_clinics}
+    return render(request,'clinic/index.html',context)
+
+
+def all_clinics(request):
+    all_clinics = Clinic.objects.all()
+    all_ave_list = []
+
+    for c in all_clinics:
+        reputations = Reputation.objects.all().filter(clinic_id = c.id)
+        ave_list = get_average_data(reputations)
+        one_clinics_aveRep = np.average(ave_list)
+        all_ave_list = all_ave_list + [c.id,c.clinic_name,c.directer_name,c.address,c.phone_num,c.homepage,c.station,one_clinics_aveRep]
+
+    context = {'all_ave_list':all_ave_list}
+    return render(request,'clinic/all_clinics.html',context)
+    
+
+def detail_clinic(request,clinic_id):
+    detail_clinic = Clinic.objects.get(id = clinic_id)
+    relation_rep = Reputation.objects.all().filter(clinic_id = clinic_id)
+
+    ave_list = get_average_data(relation_rep)
 
     labels = ['待遇面','スタッフ間の仲の良さ','風通しの良さ','スタッフ同士の相互尊重','成長環境','経営状況','人事評価の適正さ','法令遵守']
 
     c = {'d':detail_clinic,'relation_rep':relation_rep,'ave':ave_list,'labels':labels}
     return render(request,'clinic/detail_clinic.html',c)
+
 
 class UpdateClinicView(generic.edit.UpdateView):
     template_name = 'clinic/update_clinic.html'
