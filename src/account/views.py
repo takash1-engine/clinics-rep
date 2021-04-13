@@ -6,32 +6,32 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import (
      get_user_model, logout as auth_logout,
 )
-from .forms import UserCreateForm
+from .forms import UserCreateForm,UserProfileForm
 
 User = get_user_model()
 
 
-class SignUpView(generic.CreateView):
-    form_class = UserCreateForm
-    success_url = reverse_lazy('login')
-    template_name = 'registration/signup.html'
+def register_user(request):
+    user_form = UserCreateForm(request.POST or None)
+    profile_form = UserProfileForm(request.POST or None)
+    if request.method == "POST" and user_form.is_valid() and profile_form.is_valid():
 
-
-class UserCreate(CreateView):
-    """ユーザー登録"""
-    model = User
-    form_class = UserCreateForm
-
-    def form_valid(self, form):
-        """ユーザー登録"""
-        # formをテーブルに保存するかを指定するオプション（デフォルト=True）
-        user = form.save(commit=True)
-        # is_active<-ユーザーアカウントをアクティブにするかどうかを指定,
-        # 退会処理も、is_activeをFalseにするという処理がベター。
+        # Userモデルの処理。ログインできるようis_activeをTrueにし保存
+        user = user_form.save(commit=False)
         user.is_active = True
         user.save()
 
-        return redirect('user_create_done')
+        # Profileモデルの処理。↑のUserモデルと紐づけましょう。
+        profile = profile_form.save(commit=False)
+        profile.user = user
+        profile.save()
+        return redirect("clinics:index")
+
+    context = {
+        "user_form": user_form,
+        "profile_form": profile_form,
+    }
+    return render(request, 'registration/signup.html', context)
 
 
 class ProfileView(LoginRequiredMixin, generic.View):

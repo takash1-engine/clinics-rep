@@ -6,9 +6,11 @@
 
     <h5 class="card-title text-center">入会</h5>
     <form action="" method="POST">
-        {% bootstrap_form form layout='' %}
-        <button type="submit" class="btn btn-info btn-block">入会</button>
+        {{ user_form.as_p }}
+        <hr>
+        {{ profile_form.as_p }}
         {% csrf_token %}
+        <input type="submit" class="btn btn-info" value="送信">
     </form>
 
 {% endblock %}
