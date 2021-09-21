@@ -1,0 +1,11 @@
+{% extends "registration/base.html" %}
+
+{% block content %}
+    <h1>プロフィール編集</h1>
+    <form method="POST" novalidate class="mb-3">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <button type="submit">更新する</button>
+    </form>
+    <p>{{ message }}</p>
+{% endblock %}

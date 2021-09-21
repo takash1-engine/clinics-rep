@@ -9,8 +9,20 @@
             <td>{{ user.email }}</td>
         </tr>
         <tr>
-            <th scope="row">入会日</th>
-            <td>{{ user.date_joined }}</td>
+            <th scope="row">誕生日</th>
+            <td>{{ user.profile.birthday }}</td>
+        </tr>
+        <tr>
+            <th scope="row">性別</th>
+            <td>{{ user.profile.get_gender_display }}</td>
+        </tr>
+        <tr>
+            <th scope="row">住所</th>
+            <td>{{ user.profile.get_address_display }}</td>
+        </tr>
+        <tr>
+            <th scope="row">キャリア</th>
+            <td>{{ user.profile.career }}</td>
         </tr>
         </tbody>
     </table>

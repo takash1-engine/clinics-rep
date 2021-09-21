@@ -9,7 +9,7 @@
     <p class="lead">てあてびとは鍼師、灸師、マッサージ師のための治療院口コミサイトです!</p>
     <hr class="my-4">
     <p>患者さんからの評価ではなく、施術者から見た治療院への評価を知り、ステキな施術家ライフを送る手助けになりますように…</p>
-    <a class="btn mcb mc text-light btn-lg" href="#" role="button">もっと詳しく !</a>
+    <a class="btn btn-info text-light btn-lg" href="#" role="button">もっと詳しく !</a>
   </div>
 </div>
 </div>
@@ -25,13 +25,13 @@
           {{ c.phone_num }}<br>
           {{ c.homepage }}<br>
       　　</p>
-      <a class="btn mcb" href="{% url 'detail_clinic' c.id %}">治療院の詳細へ</a>
+      <a class="btn btn-info" href="{% url 'detail_clinic' c.id %}">治療院の詳細へ</a>
       </div>
     </div>
     {% endfor %}
   </div>
 </div>
 <div class="text-center">
-<a class="btn btn-lg mcb mc text-light mt-3 mb-3" href="{% url 'all_clinics' %}">全ての治療院を見る</a>
+<a class="btn btn-lg btn-info text-light mt-3 mb-3" href="{% url 'all_clinics' %}">全ての治療院を見る</a>
 </div>
 {% endblock %}

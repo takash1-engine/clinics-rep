@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractBaseUser, UserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, UserManager, PermissionsMixin,User
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import send_mail
@@ -8,7 +8,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-class UserProfile(models.Model):
+class Profile(models.Model):
     """ユーザープロフィールモデル"""
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
                                 related_name='profile')
@@ -39,10 +39,10 @@ class UserProfile(models.Model):
         ('kumamoto', '熊本県'),('oita', '大分県'),('miyazaki', '宮崎県'),
         ('kagoshima', '鹿児島県'),('okinawa', '沖縄県'),
     )
-    birthday = models.DateField(verbose_name='生年月日')
-    gender = models.CharField(verbose_name='性別',choices=gender,max_length = 8)
-    address = models.CharField(verbose_name='住所',choices=prefectures,max_length = 10)
-    carrer = models.TextField(verbose_name='キャリア',max_length = 1000)
+    birthday = models.DateField(verbose_name='生年月日',null=True)
+    gender = models.CharField(verbose_name='性別',choices=gender,max_length = 8,null=True)
+    address = models.CharField(verbose_name='住所',choices=prefectures,max_length = 10,null=True)
+    carrer = models.TextField(verbose_name='キャリア',max_length = 1000,null=True)
 
     def __str__(self):
         return self.birthday
@@ -50,6 +50,7 @@ class UserProfile(models.Model):
         return self.address
         return self.carrer
 
+    
 
 class UserManager(UserManager):
     def _create_user(self, email, password, **extra_fields):
@@ -112,11 +113,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
-
-
-
-@receiver(post_save, sender=User)
-def create_profile(sender, **kwargs):
-    """ 新ユーザー作成時に空のprofileも作成する """
-    if kwargs['created']:
-        user_profile = UserProfile.objects.get_or_create(user=kwargs['instance'])

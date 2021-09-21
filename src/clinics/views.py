@@ -46,7 +46,6 @@ def get_average_data(filter_rep):
     return ave_list
 
 
-# Create your views here.
 def index(request):
     all_clinics = Clinic.objects.all().order_by('id')[:5]
     context = {'all_clinics':all_clinics}
