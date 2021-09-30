@@ -15,8 +15,8 @@
             <li class="list-group-item">治療内容：{{ d.treatment }}</li>
             <li class="list-group-item">HP：{{ d.homepage }}</li>
             <li class="list-group-item">最寄り駅：{{ d.station }}</li>
-            <div class="text-center"><a href="{% url 'update_clinic' d.id %}" class="btn btn-outline-info mt-2 mb-2">治療院の内容を修正する</a></div> 
-            <div class="text-center"><a href="{% url 'new_rep' d.id %}" class="btn btn-info mt-2 mb-2">治療院への評価を投稿する</a></div>
+            <div class="text-center"><a href="{% url 'clinics:update_clinic' d.id %}" class="btn btn-outline-info mt-2 mb-2">治療院の内容を修正する</a></div> 
+            <div class="text-center"><a href="{% url 'clinics:new_rep' d.id %}" class="btn btn-info mt-2 mb-2">治療院への評価を投稿する</a></div>
         </div>
     </div>
 </div>
@@ -27,8 +27,8 @@
 <div class="card m-4 mcb mct col-xl-11 col-md-12">
     <h5 class="card-header">個別の治療院の評価</h5>
     <div class="card-body">
-      <h5 class="card-title"></h5>
-      <p class="card-text">
+    <h5 class="card-title"></h5>
+    <p class="card-text">
         {{ rep.condition }}
         {{ rep.staff }}
         {{ rep.ventilation }}
@@ -37,14 +37,14 @@
         {{ rep.management }}
         {{ rep.evaluation }}
         {{ rep.compliance }}</p>
-        <a href="{% url 'detail_rep' d.id rep.id %}" class="btn mcb ">評価の詳細へ</a>
+        <a href="{% url 'clinics:detail_rep' d.id rep.id %}" class="btn mcb ">評価の詳細へ</a>
     </div>
-  </div>
+</div>
 {% endfor %}
 </div>
 </div>
 
-<a href="{% url 'all_clinics' %}" class="btn mc mb-4 text-light">もどる</a>
+<a href="{% url 'clinics:all_clinics' %}" class="btn mc mb-4 text-light">もどる</a>
 
 <!-- CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>

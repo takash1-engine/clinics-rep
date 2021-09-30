@@ -2,6 +2,8 @@ from django.urls import path, include
 from . import views
 from django.views.generic import TemplateView 
 
+app_name = 'clinics'
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('clinics/', views.all_clinics, name='all_clinics'),

@@ -25,13 +25,13 @@
           {{ c.phone_num }}<br>
           {{ c.homepage }}<br>
       　　</p>
-      <a class="btn btn-info" href="{% url 'detail_clinic' c.id %}">治療院の詳細へ</a>
+      <a class="btn btn-info" href="{% url 'clinics:detail_clinic' c.id %}">治療院の詳細へ</a>
       </div>
     </div>
     {% endfor %}
   </div>
 </div>
 <div class="text-center">
-<a class="btn btn-lg btn-info text-light mt-3 mb-3" href="{% url 'all_clinics' %}">全ての治療院を見る</a>
+<a class="btn btn-lg btn-info text-light mt-3 mb-3" href="{% url 'clinics:all_clinics' %}">全ての治療院を見る</a>
 </div>
 {% endblock %}

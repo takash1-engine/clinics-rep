@@ -5,13 +5,12 @@ from django.views.generic import CreateView, UpdateView,View
 from django.shortcuts import render,redirect,get_object_or_404,resolve_url
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth import (
-     get_user_model, logout as auth_logout, login
+    get_user_model, logout as auth_logout, login
 )
 from .forms import UserCreateForm,ProfileForm
 from .models import Profile
 
 User = get_user_model()
-
 
 def register_user(request):
     user_form = UserCreateForm(request.POST or None)
@@ -21,12 +20,12 @@ def register_user(request):
         user = user_form.save(commit=False)
         user.is_staff = True
         user.save()
- 
+
         #Profileモデルの処理
         profile = profile_form.save(commit=False)
         profile.user = user
         profile.save()
- 
+
         login(
             request, user, backend="django.contrib.auth.backends.ModelBackend")
         return redirect('clinics:index')
@@ -44,21 +43,18 @@ class ProfileView(LoginRequiredMixin, generic.View):
         return render(self.request,'registration/profile.html')
         
 
-class OnlyYouMixin(UserPassesTestMixin):
-    raise_exception = True
 
-    def test_func(self):
-        profile = self.request.profile
-        return profile.pk == self.kwargs['profile.pk']
+def ProfileEditView(request):
+    if request.method == 'POST':
+        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
 
+        if profile_form.is_valid():
+            profile_form.save()
+            return redirect('accounts:profile')
+    else:
+        profile_form = ProfileForm(instance=request.user.profile)
 
-class ProfileEditView(OnlyYouMixin, generic.UpdateView):
-    model = Profile
-    form_class = ProfileForm
-    template_name = 'registration/profile_edit.html'
-
-    def get_success_url(self):
-        return resolve_url('accounts:profile', pk=self.kwargs['pk'])
+    return render(request, 'registration/profile_edit.html', {'profile_form': profile_form})
 
 
 class DeleteView(LoginRequiredMixin, generic.View):

@@ -9,4 +9,4 @@ urlpatterns = [
     path('accounts/', include('account.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', include('clinics.urls')),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
