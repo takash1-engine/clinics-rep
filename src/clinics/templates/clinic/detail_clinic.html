@@ -29,15 +29,49 @@
     <div class="card-body">
     <h5 class="card-title"></h5>
     <p class="card-text">
-        {{ rep.condition }}
-        {{ rep.staff }}
-        {{ rep.ventilation }}
-        {{ rep.respect }}
-        {{ rep.growth }}
-        {{ rep.management }}
-        {{ rep.evaluation }}
-        {{ rep.compliance }}</p>
-        <a href="{% url 'clinics:detail_rep' d.id rep.id %}" class="btn mcb ">評価の詳細へ</a>
+        <table class="table table-sm">
+            <thead>
+              <tr class="table-info">
+                <th scope="col" style="width: 40%">項目</th>
+                <th scope="col" style="width: 20%">評価</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">待遇面</th>
+                <td>{{ rep.condition }}</td>
+              </tr>
+              <tr>
+                <th scope="row">スタッフ間の仲の良さ</th>
+                <td>{{ rep.staff }}</td>
+              </tr>
+              <tr>
+                <th scope="row">風通しの良さ</th>
+                <td>{{ rep.ventilation }}</td>
+              </tr>
+              <tr>
+                <th scope="row">スタッフ同士の相互尊重</th>
+                <td>{{ rep.respect }}</td>
+              </tr>
+              <tr>
+                <th scope="row">成長環境</th>
+                <td>{{ rep.growth }}</td>
+              </tr>
+              <tr>
+                <th scope="row">経営状況</th>
+                <td>{{ rep.management }}</td>
+              </tr>
+              <tr>
+                <th scope="row">人事評価の適正さ</th>
+                <td>{{ rep.evaluation }}</td>
+              </tr>
+              <tr>
+                <th scope="row">法令順守</th>
+                <td>{{ rep.compliance }}</td>
+              </tr>
+            </tbody>
+          </table>
+        <a href="{% url 'clinics:detail_rep' d.id rep.id %}" class="btn btn-info ">評価の詳細へ</a>
     </div>
 </div>
 {% endfor %}
