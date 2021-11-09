@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<h2 class="mct">検索結果の治療院一覧</h2>
+<p>計：{{count}}件が見つかりました</p>
+{% for c in clinics %}
+<div class="card m-3">
+  <h5 class="card-header">{{ c.clinic_name }}</h5>
+  <div class="card-body">
+    <h6 class="card-title">治療院情報</h6>
+    <ul class="list-group">
+      <li class="list-group-item">{{ c.directer_name }}</li>
+      <li class="list-group-item">{{ c.address }}</li>
+      <li class="list-group-item">{{ c.phone_num }}</li>
+      <li class="list-group-item">{{ c.homepage }}</li>
+      <li class="list-group-item">{{ c.station }}</li>
+    </ul>
+    <a href="{% url 'clinics:detail_clinic' c.id %}" class="btn btn-info m-2">治療院の詳細へ</a>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}

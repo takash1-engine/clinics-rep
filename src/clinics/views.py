@@ -5,6 +5,9 @@ from .form import ClinicForm ,ReputationForm
 from .models import Clinic ,Reputation
 from django.views import generic
 from django.urls import reverse
+from django.contrib import messages
+from django.db.models import Q
+from django.views.generic import ListView
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -64,6 +67,17 @@ def all_clinics(request):
 
     context = {'all_ave_list':all_ave_list}
     return render(request,'clinic/all_clinics.html',context)
+
+
+def SearchClinicList(request):
+    query = request.GET.get('keyword')
+    if query:
+        search_clinics = Clinic.objects.all().filter(
+        clinic_name__icontains=query).distinct()
+        search_counts = search_clinics.count()
+        return render(request,'clinic/search_clinics.html',{'clinics':search_clinics,'count':search_counts})
+    else:
+        return redirect('clinics:all_clinics')
     
 
 def detail_clinic(request,clinic_id):
@@ -102,7 +116,7 @@ def new_rep(request,clinic_id):
             reputation = form.save(commit=False)
             reputation.clinic = clinic
             reputation.save()
-            return redirect('detail_clinic',clinic_id=clinic.id)
+            return redirect('clinics:detail_clinic',clinic_id=clinic.id)
         else:
             params['message'] = '再入力して下さい'
             params['form'] = form
@@ -117,7 +131,7 @@ def new_clinic(request):
         form = ClinicForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('all_clinics')
+            return redirect('clinics:all_clinics')
         else:
             params['message'] = '再入力して下さい'
             params['form'] = form

@@ -6,6 +6,7 @@ app_name = 'clinics'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('clinics/search/', views.SearchClinicList, name='search_clinics'),
     path('clinics/', views.all_clinics, name='all_clinics'),
     path('clinics/<int:clinic_id>/', views.detail_clinic, name='detail_clinic'),
     path('clinics/<int:pk>/update/', views.UpdateClinicView.as_view(), name='update_clinic'),
