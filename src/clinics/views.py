@@ -63,6 +63,7 @@ def all_clinics(request):
         reputations = Reputation.objects.all().filter(clinic_id = c.id)
         ave_list = get_average_data(reputations)
         one_clinics_ave_rep = np.average(ave_list)
+
         all_ave_list.append([c.id,c.clinic_name,c.directer_name,c.address,c.phone_num,c.homepage,c.station,one_clinics_ave_rep])
 
     context = {'all_ave_list':all_ave_list}
@@ -85,6 +86,8 @@ def detail_clinic(request,clinic_id):
     relation_rep = Reputation.objects.all().filter(clinic_id = clinic_id)
 
     ave_list = get_average_data(relation_rep)
+    if "No reputation" in ave_list :
+            ave_list = "評価がまだありません"
 
     labels = ['待遇面','スタッフ間の仲の良さ','風通しの良さ','スタッフ同士の相互尊重','成長環境','経営状況','人事評価の適正さ','法令遵守']
 
@@ -98,7 +101,7 @@ class UpdateClinicView(generic.edit.UpdateView):
     fields = ['clinic_name', 'directer_name','address','phone_num','from_hour','to_hour','holiday','treatment','homepage','station']
 
     def get_success_url(self):
-        return reverse('detail_clinic',kwargs={'clinic_id': self.object.pk})
+        return reverse('clinics:detail_clinic',kwargs={'clinic_id': self.object.pk})
     
 
 def detail_rep(request,clinic_id,reputation_id):

@@ -6,24 +6,92 @@
     <div class="card-header mct"><h2>{{ clinic.clinic_name }}の詳細な評価</h2></div>
     <div class="card-body ">
       <p class="card-text">
-        <li class="list-group-item">{{ rep.condition }}</li>
-        <li class="list-group-item">{{ rep.staff }}</li>
-        <li class="list-group-item">{{ rep.ventilation }}</li>
-        <li class="list-group-item">{{ rep.respect }}</li>
-        <li class="list-group-item">{{ rep.growth }}</li>
-        <li class="list-group-item">{{ rep.management }}</li>
-        <li class="list-group-item">{{ rep.evaluation }}</li>
-        <li class="list-group-item">{{ rep.compliance }}</li>
-        <li class="list-group-item">{{ rep.reason }}</li>
-        <li class="list-group-item">{{ rep.culture }}</li>
-        <li class="list-group-item">{{ rep.reward_growth }}</li>
-        <li class="list-group-item">{{ rep.supply }}</li>
-        <li class="list-group-item">{{ rep.women_work }}</li>
-        <li class="list-group-item">{{ rep.worklife }}</li>
-        <li class="list-group-item">{{ rep.strength_weak }}</li>
-        <li class="list-group-item">{{ rep.director }}</li>
-      </p>
-      <div class="text-center"><a class="btn mcb mb-2" href="{% url 'clinics:detail_clinic' clinic.id %}">治療院の詳細へ戻る</a></div>
+        <table class="table table-sm">
+          <tbody>
+            <tr>
+              <th scope="row">待遇面</th>
+              <td>{{ rep.condition }}</td>
+            </tr>
+            <tr>
+              <th scope="row">スタッフ間の仲の良さ</th>
+              <td>{{ rep.staff }}</td>
+            </tr>
+            <tr>
+              <th scope="row">風通しの良さ</th>
+              <td>{{ rep.ventilation }}</td>
+            </tr>
+            <tr>
+              <th scope="row">スタッフ同士の相互尊重</th>
+              <td>{{ rep.respect }}</td>
+            </tr>
+            <tr>
+              <th scope="row">成長環境</th>
+              <td>{{ rep.growth }}</td>
+            </tr>
+            <tr>
+              <th scope="row">経営状況</th>
+              <td>{{ rep.management }}</td>
+            </tr>
+            <tr>
+              <th scope="row">人事評価の適正さ</th>
+              <td>{{ rep.evaluation }}</td>
+            </tr>
+            <tr>
+              <th scope="row">法令順守</th>
+              <td>{{ rep.compliance }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="card">
+          <div class="card-header bg-info text-white">入社理由</div>
+          <div class="card-body">
+            <p class="card-text">{{ rep.reason }}</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header bg-info text-white">組織文化</div>
+          <div class="card-body">
+            <p class="card-text">{{ rep.culture }}</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header bg-info text-white">働きがいや成長環境</div>
+          <div class="card-body">
+            <p class="card-text">{{ rep.reward_growth }}</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header bg-info text-white">給与制度</div>
+          <div class="card-body">
+            <p class="card-text">{{ rep.supply }}</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header bg-info text-white">女性の働きやすさ</div>
+          <div class="card-body">
+            <p class="card-text">{{ rep.women_work }}</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header bg-info text-white">ワークライフバランス</div>
+          <div class="card-body">
+            <p class="card-text">{{ rep.worklife }}</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header bg-info text-white">治療院の強みや弱み</div>
+          <div class="card-body">
+            <p class="card-text">{{ rep.strength_weak }}</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header bg-info text-white">治療院の代表者へ</div>
+          <div class="card-body">
+            <p class="card-text">{{ rep.director }}</p>
+          </div>
+        </div>
+      <div class="text-center"><a class="btn btn-info mt-4" href="{% url 'clinics:detail_clinic' clinic.id %}">治療院の詳細へ戻る</a></div>
     </div>
     
 </div>

@@ -3,7 +3,7 @@
 {% block body %}
 
 <h2 class="mct">検索結果の治療院一覧</h2>
-<p>計：{{count}}件が見つかりました</p>
+<p>計 {{count}} 件が見つかりました</p>
 {% for c in clinics %}
 <div class="card m-3">
   <h5 class="card-header">{{ c.clinic_name }}</h5>
