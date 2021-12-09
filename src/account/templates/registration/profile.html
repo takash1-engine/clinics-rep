@@ -3,6 +3,12 @@
 {% block content %}
 
     <table class="table borderless">
+        <thead>
+        <tr>
+            <th scope="col" style="width: 15%">項目</th>
+            <th scope="col" style="width: 60%">登録内容</th>
+        </tr>
+        </thead>
         <tbody>
         <tr>
             <th scope="row">E-mail</th>
@@ -22,7 +28,7 @@
         </tr>
         <tr>
             <th scope="row">キャリア</th>
-            {{ user.profile.career }}
+            <td>{{ user.profile.career }}</td>
         </tr>
         </tbody>
     </table>

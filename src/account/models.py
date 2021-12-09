@@ -42,13 +42,13 @@ class Profile(models.Model):
     birthday = models.DateField(verbose_name='生年月日',null=True)
     gender = models.CharField(verbose_name='性別',choices=gender,max_length = 8,null=True)
     address = models.CharField(verbose_name='住所',choices=prefectures,max_length = 10,null=True)
-    carrer = models.TextField(verbose_name='キャリア',max_length = 1000,null=True)
+    career = models.TextField(verbose_name='キャリア',max_length = 1000,null=True)
 
     def __str__(self):
         return self.birthday
         return self.gender
         return self.address
-        return self.carrer
+        return self.career
 
     
 

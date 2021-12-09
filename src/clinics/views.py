@@ -8,6 +8,8 @@ from django.urls import reverse
 from django.contrib import messages
 from django.db.models import Q
 from django.views.generic import ListView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -80,7 +82,7 @@ def SearchClinicList(request):
     else:
         return redirect('clinics:all_clinics')
     
-
+@login_required
 def detail_clinic(request,clinic_id):
     detail_clinic = Clinic.objects.get(id = clinic_id)
     relation_rep = Reputation.objects.all().filter(clinic_id = clinic_id)
@@ -94,8 +96,7 @@ def detail_clinic(request,clinic_id):
     c = {'d':detail_clinic,'relation_rep':relation_rep,'ave':ave_list,'labels':labels}
     return render(request,'clinic/detail_clinic.html',c)
 
-
-class UpdateClinicView(generic.edit.UpdateView):
+class UpdateClinicView(generic.edit.UpdateView,LoginRequiredMixin):
     template_name = 'clinic/update_clinic.html'
     model = Clinic
     fields = ['clinic_name', 'directer_name','address','phone_num','from_hour','to_hour','holiday','treatment','homepage','station']
@@ -104,12 +105,14 @@ class UpdateClinicView(generic.edit.UpdateView):
         return reverse('clinics:detail_clinic',kwargs={'clinic_id': self.object.pk})
     
 
+@login_required
 def detail_rep(request,clinic_id,reputation_id):
     detail_clinic = Clinic.objects.get(id = clinic_id)
     detail_rep = Reputation.objects.get(id = reputation_id)
     return render(request,'clinic/detail_rep.html',{'clinic':detail_clinic,'rep':detail_rep})
 
 
+@login_required
 def new_rep(request,clinic_id):
     clinic = get_object_or_404(Clinic, id=clinic_id)
     params = {'message': '', 'form': None}
@@ -127,7 +130,7 @@ def new_rep(request,clinic_id):
         params['form'] = ReputationForm()
     return render(request, 'clinic/new_rep.html', params)
 
-
+@login_required
 def new_clinic(request):
     params = {'message': '', 'form': None}
     if request.method == 'POST':
